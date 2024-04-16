@@ -1,11 +1,12 @@
-import 'dart:ui';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:loginapp/Pages/HomePage.dart';
+import 'package:loginapp/Pages/RegisterPage.dart';
+import 'package:loginapp/Pages/welcome.dart';
 import 'package:loginapp/ResuableWidgets/ResuableWidgets.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key, required void Function() onTap}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,11 +15,49 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
+  Color fieldColor = Color.fromARGB(255, 1, 1, 1).withOpacity(0.4);
+  Color bttnColor = Color.fromARGB(255, 235, 235, 235);
+  Color bttnColor2 = Color.fromARGB(0, 254, 254, 254);
+  Color textColor = Color.fromARGB(255, 0, 0, 0);
+  Color textColor2 = Color.fromARGB(255, 255, 254, 254);
+
+  void LoginUser() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailTextController.text,
+        password: _passwordTextController.text,
+      );
+      // Navigate to the next screen (e.g., HomeScreen)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Welcome()),
+      );
+    } on FirebaseAuthException catch (e) {
+      print("Error : ${e.code}");
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        InvalidCredentials("Invalid email or password");
+      } else {
+        print("an error accuted");
+        InvalidCredentials("An error occurred, please try again later");
+      }
+    }
+  }
+
+  void InvalidCredentials(String errorText) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(errorText),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: SingleChildScrollView(
+      child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
@@ -36,19 +75,34 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     CustomTextField("Enter Username", Icons.person_outline,
-                        false, _emailTextController),
+                        false, _emailTextController, fieldColor),
                     const SizedBox(
                       height: 30,
                     ),
                     CustomTextField("Enter Password", Icons.lock_outline, true,
-                        _passwordTextController),
+                        _passwordTextController, fieldColor),
                     const SizedBox(
                       height: 30,
                     ),
-                    SigninButton(context, true, () {})
+                    SigninButton(context, true, () {
+                      LoginUser();
+                    }, "Login", bttnColor, textColor),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SigninButton(context, true, () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterPage(
+                                  onTap: () {},
+                                )),
+                      );
+                    }, "Dont have a Account create one?", bttnColor2,
+                        textColor2)
                   ],
                 ),
               ))),
-    );
+    ));
   }
 }
