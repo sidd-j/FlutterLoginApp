@@ -1,0 +1,5 @@
+
+image: assets/images/2.0x/splash.png
+color: "42a5f5"
+android: true
+ios: true

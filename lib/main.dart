@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loginapp/Pages/AuthPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loginapp/Pages/RegisterPage.dart';
+import 'package:loginapp/Pages/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,13 +15,15 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage("lib/Images/background.jpg"), context);
+
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: SplashScreen(),
     );
   }
 }
