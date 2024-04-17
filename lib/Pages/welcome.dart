@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loginapp/Pages/GetUserData.dart';
 import 'package:loginapp/Pages/LoginPage.dart';
 import 'package:loginapp/Pages/editProfile.dart';
 
@@ -9,11 +11,14 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  final user = FirebaseAuth.instance.currentUser!;
+  late User user;
+  late CollectionReference<Map<String, dynamic>> usersCollection;
 
   @override
   void initState() {
     super.initState();
+    user = FirebaseAuth.instance.currentUser!;
+    usersCollection = FirebaseFirestore.instance.collection("Users");
   }
 
   void signOutUser(BuildContext context) {
@@ -32,10 +37,18 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:
+            const Color.fromARGB(255, 0, 0, 0), // Set the background color here
+
+        title: const Text('Home Page',
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
         actions: [
           IconButton(
             onPressed: () => signOutUser(context),
-            icon: Icon(Icons.logout),
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -63,6 +76,10 @@ class _WelcomeState extends State<Welcome> {
                     fontFamily: 'Kanit',
                   ),
                 ),
+                const SizedBox(
+                  height: 90,
+                ),
+                GetUserData(usersCollection: usersCollection),
                 const SizedBox(
                   height: 90,
                 ),

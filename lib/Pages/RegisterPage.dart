@@ -19,42 +19,52 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _passwordConfirmTextController =
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _passwordConfirmTextController =
       TextEditingController();
 
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
-  Color fieldColor = Color.fromARGB(86, 255, 255, 255);
-  Color bttnColor = Color.fromARGB(255, 255, 255, 255);
-  Color bttnColor2 = Color.fromARGB(0, 254, 254, 254);
-  Color textColor = Color.fromARGB(255, 0, 0, 0);
-  Color textColor2 = Color.fromARGB(255, 255, 254, 254);
+  final Color fieldColor = Color.fromARGB(86, 255, 255, 255);
+  final Color bttnColor = Color.fromARGB(255, 255, 255, 255);
+  final Color bttnColor2 = Color.fromARGB(0, 254, 254, 254);
+  final Color textColor = Color.fromARGB(255, 0, 0, 0);
+  final Color textColor2 = Color.fromARGB(255, 255, 254, 254);
 
   void signUpUser() async {
     try {
       if (_passwordTextController.text == _passwordConfirmTextController.text) {
-        //Sign up user
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _emailTextController.text.trim(),
             password: _passwordTextController.text.trim());
+
+        await addUserDetails(
+            _nameTextController.text.trim(),
+            int.parse(_phoneNumberController.text.trim()),
+            _emailTextController.text.trim());
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Welcome()),
         );
       } else {
-        InvalidCredentials("Password Dont Match");
+        invalidCredentials("Passwords don't match");
       }
     } on FirebaseAuthException catch (e) {
-      InvalidCredentials(e.code);
+      invalidCredentials(e.code);
     }
-    ;
   }
 
-  void InvalidCredentials(String errorMsg) {
+  Future<void> addUserDetails(
+      String fullname, int phonenum, String email) async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .add({'FullName': fullname, 'PhoneNum': phonenum, 'Email': email});
+  }
+
+  void invalidCredentials(String errorMsg) {
     showDialog(
         context: context,
         builder: (context) {

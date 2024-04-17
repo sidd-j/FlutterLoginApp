@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:loginapp/ResuableWidgets/ResuableWidgets.dart';
 
 class EditProfile extends StatelessWidget {
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _ageTextController = TextEditingController();
+
+  final TextEditingController _genderTextController = TextEditingController();
+
+  final Color fieldColor = Color.fromARGB(86, 255, 255, 255);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Edit Profile'),
-        ),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('lib/Images/background.jpg'),
-                fit: BoxFit.cover),
+      appBar: AppBar(
+        backgroundColor:
+            const Color.fromARGB(255, 0, 0, 0), // Set the background color here
+        iconTheme: const IconThemeData(
+            color: Colors
+                .white), // Change the color of the back arrow button to white
+
+        title: const Text('Edit Profile',
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/Images/background.jpg'),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: Container(
+          color: Color.fromARGB(149, 6, 6, 6),
           child: Center(
             child: Stack(
               children: [
@@ -41,14 +59,13 @@ class EditProfile extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(style: BorderStyle.solid),
-                      color: Colors.white,
                     ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter Name',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 20)),
+                    child: CustomTextField(
+                      "Enter Full Name",
+                      Icons.person_outline,
+                      false,
+                      _nameTextController,
+                      fieldColor, // Change to your desired field color
                     ),
                   ),
                 ),
@@ -62,14 +79,13 @@ class EditProfile extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(style: BorderStyle.solid),
-                      color: Colors.white,
                     ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter Age',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 20)),
+                    child: CustomTextField(
+                      "Enter Age",
+                      Icons.person_outline,
+                      false, // Change to true if age is a password
+                      _ageTextController, // Use a different controller for age
+                      fieldColor, // Change to your desired field color
                     ),
                   ),
                 ),
@@ -83,35 +99,39 @@ class EditProfile extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(style: BorderStyle.solid),
-                      color: Colors.white,
                     ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter Gender',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 20)),
-                    ),
+                    child: CustomTextField(
+                        "Enter Gender",
+                        Icons.person_outline,
+                        false, // Change to true if gender is a password
+                        _genderTextController, // Use a different controller for gender
+                        fieldColor // Change to your desired field color
+                        ),
                   ),
                 ),
                 Positioned(
-                    child: Container(
-                  margin: EdgeInsets.only(
-                    top: 400,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow),
-                    child: Text(
-                      'Save changes to profile',
-                      style: TextStyle(color: Colors.black),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      top: 400,
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      child: Text(
+                        'Save changes to profile',
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 235, 232, 232)),
+                      ),
                     ),
                   ),
-                ))
+                )
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
