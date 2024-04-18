@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loginapp/Pages/GetUserData.dart';
 import 'package:loginapp/Pages/LoginPage.dart';
 import 'package:loginapp/Pages/editProfile.dart';
 
@@ -77,7 +76,6 @@ class _WelcomeState extends State<Welcome> {
                 const SizedBox(
                   height: 90,
                 ),
-                GetUserData(usersCollection: usersCollection),
                 const SizedBox(
                   height: 90,
                 ),
