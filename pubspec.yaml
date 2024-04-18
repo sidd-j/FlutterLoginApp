@@ -36,3 +36,7 @@ flutter:
   assets:
  
     - lib/Images/background.jpg
+    - lib/Images/logo.png
+    - lib/Images/logo.svg
+
+

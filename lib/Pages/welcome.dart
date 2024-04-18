@@ -26,9 +26,7 @@ class _WelcomeState extends State<Welcome> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => LoginPage(
-          onTap: () {},
-        ),
+        builder: (context) => LoginPage(),
       ),
     );
   }

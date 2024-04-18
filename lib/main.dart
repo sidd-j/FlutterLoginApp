@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:loginapp/Pages/AuthPage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:loginapp/Pages/RegisterPage.dart';
 import 'package:loginapp/Pages/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -19,7 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage("lib/Images/background.jpg"), context);
+    precacheImage(const AssetImage("lib/Images/background.jpg"), context);
+    precacheImage(const AssetImage("lib/Images/logo.png"), context);
 
     return const MaterialApp(
       debugShowCheckedModeBanner: false,

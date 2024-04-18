@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loginapp/Pages/HomePage.dart';
 import 'package:loginapp/Pages/RegisterPage.dart';
 import 'package:loginapp/Pages/welcome.dart';
 import 'package:loginapp/ResuableWidgets/ResuableWidgets.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required void Function() onTap}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -33,13 +32,7 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => Welcome()),
       );
     } on FirebaseAuthException catch (e) {
-      print("Error : ${e.code}");
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-        InvalidCredentials("Invalid email or password");
-      } else {
-        print("an error accuted");
-        InvalidCredentials("An error occurred, please try again later");
-      }
+      InvalidCredentials("Invalid Credenttails");
     }
   }
 
@@ -93,10 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     SigninButton(context, true, () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => RegisterPage(
-                                  onTap: () {},
-                                )),
+                        MaterialPageRoute(builder: (context) => RegisterPage()),
                       );
                     }, "Dont have a Account create one?", bttnColor2,
                         textColor2)

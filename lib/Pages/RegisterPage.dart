@@ -5,14 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:loginapp/Pages/HomePage.dart';
 import 'package:loginapp/Pages/LoginPage.dart';
 import 'package:loginapp/Pages/welcome.dart';
 import 'package:loginapp/ResuableWidgets/ResuableWidgets.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key, required void Function() onTap})
-      : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -184,8 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     SigninButton(context, true, () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginPage(onTap: () => {})),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     }, "Already have a Account ? log in", bttnColor2,
                         textColor2)

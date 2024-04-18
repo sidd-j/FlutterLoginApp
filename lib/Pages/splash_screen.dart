@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loginapp/Pages/AuthPage.dart';
-import 'package:loginapp/Pages/NavToPage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -66,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
           alignment: Alignment.center,
           children: [
             const Icon(
-              Icons.person_pin,
+              Icons.person,
               size: 200,
               color: Colors.white,
             ),
