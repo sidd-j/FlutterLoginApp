@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
             color: Color.fromARGB(149, 6, 6, 6),
             child: Container(
               margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              color: Color.fromARGB(255, 1, 0, 0),
+              color: Color.fromARGB(125, 1, 0, 0),
               child: Padding(
                 padding: EdgeInsets.fromLTRB(
                   20,
